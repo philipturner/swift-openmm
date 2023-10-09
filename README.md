@@ -1,2 +1,1 @@
-# swift-openmm
-Swift bindings for OpenMM
+# Swift Bindings for OpenMM
