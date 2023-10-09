@@ -1,0 +1,11 @@
+//
+//  module.modulemap
+//  MolecularRenderer
+//
+//  Created by Philip Turner on 6/18/23.
+//
+
+module COpenMM {
+  header "OpenMMCWrapper.h"
+  export *
+}
