@@ -2,6 +2,17 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import class Foundation.ProcessInfo
+
+var linkerSettings: [LinkerSetting] = []
+
+// Example: "/Users/philipturner/miniforge3/lib"
+if let path = ProcessInfo.processInfo.environment["OPENMM_LIBRARY_PATH"] {
+  linkerSettings = [
+    .unsafeFlags(["-L\(path)"]),
+    .linkedLibrary("OpenMM"),
+  ]
+}
 
 let package = Package(
   name: "swift-openmm",
@@ -16,7 +27,8 @@ let package = Package(
   targets: [
     .target(
       name: "COpenMM",
-      dependencies: []),
+      dependencies: [],
+      linkerSettings: linkerSettings),
     .target(
       name: "OpenMM",
       dependencies: ["COpenMM"]),
