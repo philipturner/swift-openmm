@@ -35,7 +35,7 @@ public class OpenMM_Context: OpenMM_Object {
   
   public func setVelocitiesToTemperature(
     _ temperature: Double,
-    _ randomSeed: Int = .random(in: 0...Int.max)
+    randomSeed: Int = .random(in: 0...Int.max)
   ) {
     OpenMM_Context_setVelocitiesToTemperature(
       pointer, temperature, Int32(randomSeed % (Int(Int32.max) + 1)))
