@@ -12,8 +12,8 @@ import COpenMM
 public class OpenMM_LocalEnergyMinimizer {
   public static func minimize(
     context: OpenMM_Context,
-    tolerance: Double,
-    maxIterations: Int
+    tolerance: Double = 10,
+    maxIterations: Int = 0
   ) {
     OpenMM_LocalEnergyMinimizer_minimize(
       context.pointer, tolerance, Int32(maxIterations))
