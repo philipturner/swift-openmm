@@ -81,4 +81,14 @@ public class OpenMM_System: OpenMM_Object {
     let index = OpenMM_System_addParticle(pointer, mass)
     return Int(index)
   }
+  
+  /// There is no simple way to wrap this in a Swift computed property.
+  public func getParticleMass(index: Int) -> Double {
+    return OpenMM_System_getParticleMass(pointer, Int32(index))
+  }
+  
+  /// There is no simple way to wrap this in a Swift computed property.
+  public func setParticleMass(_ mass: Double, index: Int) {
+    OpenMM_System_setParticleMass(pointer, Int32(index), mass)
+  }
 }

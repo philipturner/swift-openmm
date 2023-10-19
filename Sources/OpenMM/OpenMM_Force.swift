@@ -175,7 +175,7 @@ public class OpenMM_CustomExternalForce: OpenMM_Force {
     return Int(index)
   }
   
-  // There is no simple way to wrap this in a Swift computed property.
+  /// There is no simple way to wrap this in a Swift computed property.
   public func setParticleParameters(
     index: Int, particle: Int, parameters: OpenMM_DoubleArray
   ) {
