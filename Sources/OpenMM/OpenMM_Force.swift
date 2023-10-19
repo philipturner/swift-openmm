@@ -338,6 +338,15 @@ public class OpenMM_CustomNonbondedForce: OpenMM_Force {
   }
   
   @discardableResult
+  public func addInteractionGroup(
+    set1: OpenMM_IntSet, set2: OpenMM_IntSet
+  ) -> Int {
+    let index = OpenMM_CustomNonbondedForce_addInteractionGroup(
+      pointer, set1.pointer, set2.pointer)
+    return Int(index)
+  }
+  
+  @discardableResult
   public func addParticle(
     parameters: OpenMM_DoubleArray
   ) -> Int {

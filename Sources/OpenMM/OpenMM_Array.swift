@@ -101,6 +101,26 @@ public class OpenMM_IntArray: OpenMM_Object {
   }
 }
 
+public class OpenMM_IntSet: OpenMM_Object {
+  public override convenience init() {
+    self.init(OpenMM_IntSet_create())
+    self.retain()
+  }
+  
+  public override class func destroy(_ pointer: OpaquePointer) {
+    OpenMM_IntSet_destroy(pointer)
+  }
+  
+  public var size: Int {
+    let _size = OpenMM_IntSet_getSize(pointer)
+    return Int(_size)
+  }
+  
+  public func insert(_ value: Int) {
+    OpenMM_IntSet_insert(pointer, Int32(value))
+  }
+}
+
 public class OpenMM_StringArray: OpenMM_Object {
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_StringArray_destroy(pointer)
