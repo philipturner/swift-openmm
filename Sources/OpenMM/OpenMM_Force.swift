@@ -183,6 +183,11 @@ public class OpenMM_CustomExternalForce: OpenMM_Force {
       pointer, Int32(truncatingIfNeeded: index),
       Int32(truncatingIfNeeded: particle), parameters.pointer)
   }
+  
+  public func updateParametersInContext(_ context: OpenMM_Context) {
+    OpenMM_CustomExternalForce_updateParametersInContext(
+      pointer, context.pointer)
+  }
 }
 
 public class OpenMM_CustomHbondForce: OpenMM_Force {
