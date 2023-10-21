@@ -8,30 +8,6 @@
 import COpenMM
 
 public class OpenMM_State: OpenMM_Object {
-  public struct DataType: OptionSet {
-    public var rawValue: UInt32
-    
-    @inlinable
-    public init(rawValue: UInt32) {
-      self.rawValue = rawValue
-    }
-    
-    init(_ _openmm_type: OpenMM_State_DataType) {
-      self.init(rawValue: UInt32(_openmm_type.rawValue))
-    }
-    
-    public static let energy: DataType = .init(OpenMM_State_Energy)
-    public static let forces: DataType = .init(OpenMM_State_Forces)
-    public static let integratorParameters: DataType = .init(
-      OpenMM_State_IntegratorParameters)
-    public static let parameters: DataType = .init(OpenMM_State_Parameters)
-    public static let parameterDerivatives: DataType = .init(
-      OpenMM_State_ParameterDerivatives)
-    public static let positions: DataType = .init(OpenMM_State_Positions)
-    public static let velocities: DataType = .init(OpenMM_State_Velocities)
-    
-  }
-  
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_State_destroy(pointer)
   }
@@ -95,5 +71,30 @@ public class OpenMM_State: OpenMM_Object {
   
   public var velocities: OpenMM_Vec3Array {
     .init(_openmm_get(pointer, OpenMM_State_getVelocities))
+  }
+}
+
+extension OpenMM_State {
+  public struct DataType: OptionSet {
+    public var rawValue: UInt32
+    
+    @inlinable
+    public init(rawValue: UInt32) {
+      self.rawValue = rawValue
+    }
+    
+    init(_ _openmm_type: OpenMM_State_DataType) {
+      self.init(rawValue: UInt32(_openmm_type.rawValue))
+    }
+    
+    public static let energy: DataType = .init(OpenMM_State_Energy)
+    public static let forces: DataType = .init(OpenMM_State_Forces)
+    public static let integratorParameters: DataType = .init(
+      OpenMM_State_IntegratorParameters)
+    public static let parameters: DataType = .init(OpenMM_State_Parameters)
+    public static let parameterDerivatives: DataType = .init(
+      OpenMM_State_ParameterDerivatives)
+    public static let positions: DataType = .init(OpenMM_State_Positions)
+    public static let velocities: DataType = .init(OpenMM_State_Velocities)
   }
 }
