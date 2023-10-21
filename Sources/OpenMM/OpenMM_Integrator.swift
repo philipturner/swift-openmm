@@ -24,6 +24,16 @@ public class OpenMM_Integrator: OpenMM_Object {
   public func step(_ steps: Int) {
     OpenMM_Integrator_step(pointer, Int32(steps))
   }
+  
+  /// WARNING: Never call the getter. There is no corresponding OpenMM function.
+  public var stepSize: Double {
+    get {
+      fatalError("'OpenMM_Integrator.stepSize' has no getter.")
+    }
+    set {
+      OpenMM_Integrator_setStepSize(pointer, newValue)
+    }
+  }
 }
 
 public class OpenMM_BrownianIntegrator: OpenMM_Integrator {
