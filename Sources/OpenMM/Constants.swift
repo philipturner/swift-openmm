@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  MolecularRenderer
+//
 //
 //  Created by Philip Turner on 6/25/23.
 //

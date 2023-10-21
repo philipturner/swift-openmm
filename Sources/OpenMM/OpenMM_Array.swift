@@ -1,6 +1,6 @@
 //
 //  OpenMM_Array.swift
-//  MolecularRendererApp
+//
 //
 //  Created by Philip Turner on 6/25/23.
 //
@@ -118,6 +118,34 @@ public class OpenMM_IntSet: OpenMM_Object {
   
   public func insert(_ value: Int) {
     OpenMM_IntSet_insert(pointer, Int32(value))
+  }
+}
+
+@dynamicMemberLookup
+public class OpenMM_ParameterArray: OpenMM_Object {
+  public var size: Int {
+    let _size = OpenMM_ParameterArray_getSize(pointer)
+    return Int(_size)
+  }
+  
+  public subscript(dynamicMember name: String) -> Double {
+    get {
+      OpenMM_ParameterArray_get(pointer, name)
+    }
+  }
+}
+
+@dynamicMemberLookup
+public class OpenMM_PropertyArray: OpenMM_Object {
+  public var size: Int {
+    let _size = OpenMM_PropertyArray_getSize(pointer)
+    return Int(_size)
+  }
+  
+  public subscript(dynamicMember name: String) -> String {
+    get {
+      .init(cString: OpenMM_PropertyArray_get(pointer, name))
+    }
   }
 }
 

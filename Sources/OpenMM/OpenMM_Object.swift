@@ -1,6 +1,6 @@
 //
 //  OpenMM_Object.swift
-//  MolecularRendererApp
+//
 //
 //  Created by Philip Turner on 6/25/23.
 //
