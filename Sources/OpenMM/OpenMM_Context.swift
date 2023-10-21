@@ -62,6 +62,16 @@ public class OpenMM_Context: OpenMM_Object {
     return state
   }
   
+  /// WARNING: Never call the getter. There is no corresponding OpenMM function.
+  public var state: OpenMM_State {
+    get {
+      fatalError("'OpenMM_Context.state' has no getter.")
+    }
+    set {
+      OpenMM_Context_setState(pointer, newValue.pointer)
+    }
+  }
+  
   public var velocities: OpenMM_Vec3Array {
      get {
       _openmm_no_getter()
