@@ -79,8 +79,6 @@ func _openmm_index_get<S>(
   return result
 }
 
-// _openmm_index_set
-
 @inline(__always)
 func _openmm_get<S, T, U>(
   _ caller: OpaquePointer,

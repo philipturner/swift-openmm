@@ -28,7 +28,7 @@ public class OpenMM_Integrator: OpenMM_Object {
   /// WARNING: Never call the getter. There is no corresponding OpenMM function.
   public var stepSize: Double {
     get {
-      fatalError("'OpenMM_Integrator.stepSize' has no getter.")
+      _openmm_no_getter()
     }
     set {
       OpenMM_Integrator_setStepSize(pointer, newValue)

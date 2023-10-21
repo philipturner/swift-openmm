@@ -24,6 +24,7 @@ public class OpenMM_Context: OpenMM_Object {
     .init(_openmm_get(pointer, OpenMM_Context_getPlatform))
   }
   
+  /// WARNING: Never call the getter. There is no corresponding OpenMM function.
   public var positions: OpenMM_Vec3Array {
      get {
       _openmm_no_getter()
@@ -65,13 +66,34 @@ public class OpenMM_Context: OpenMM_Object {
   /// WARNING: Never call the getter. There is no corresponding OpenMM function.
   public var state: OpenMM_State {
     get {
-      fatalError("'OpenMM_Context.state' has no getter.")
+      _openmm_no_getter()
     }
     set {
       OpenMM_Context_setState(pointer, newValue.pointer)
     }
   }
   
+  public var stepCount: Int {
+    get {
+      let stepCount = _openmm_get(pointer, OpenMM_Context_getStepCount)
+      return Int(truncatingIfNeeded: stepCount)
+    }
+    set {
+      let stepCount = Int64(truncatingIfNeeded: newValue)
+      OpenMM_Context_setStepCount(pointer, stepCount)
+    }
+  }
+  
+  public var time: Double {
+    get {
+      _openmm_get(pointer, OpenMM_Context_getTime)
+    }
+    set {
+      OpenMM_Context_setTime(pointer, newValue)
+    }
+  }
+  
+  /// WARNING: Never call the getter. There is no corresponding OpenMM function.
   public var velocities: OpenMM_Vec3Array {
      get {
       _openmm_no_getter()
