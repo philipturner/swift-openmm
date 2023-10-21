@@ -20,9 +20,16 @@ public class OpenMM_State: OpenMM_Object {
       self.init(rawValue: UInt32(_openmm_type.rawValue))
     }
     
+    public static let energy: DataType = .init(OpenMM_State_Energy)
+    public static let forces: DataType = .init(OpenMM_State_Forces)
+    public static let integratorParameters: DataType = .init(
+      OpenMM_State_IntegratorParameters)
+    public static let parameters: DataType = .init(OpenMM_State_Parameters)
+    public static let parameterDerivatives: DataType = .init(
+      OpenMM_State_ParameterDerivatives)
     public static let positions: DataType = .init(OpenMM_State_Positions)
     public static let velocities: DataType = .init(OpenMM_State_Velocities)
-    public static let energy: DataType = .init(OpenMM_State_Energy)
+    
   }
   
   public override class func destroy(_ pointer: OpaquePointer) {
