@@ -48,4 +48,9 @@ public class OpenMM_System: OpenMM_Object {
   public func setParticleMass(_ mass: Double, index: Int) {
     OpenMM_System_setParticleMass(pointer, Int32(index), mass)
   }
+  
+  /// There is no simple way to wrap this in a Swift computed property.
+  public func setVirtualSite(_ virtualSite: OpenMM_VirtualSite, index: Int) {
+    OpenMM_System_setVirtualSite(pointer, Int32(index), virtualSite.pointer)
+  }
 }
