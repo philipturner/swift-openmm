@@ -28,4 +28,8 @@ public class OpenMM_NoseHooverIntegrator: OpenMM_Integrator {
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_NoseHooverIntegrator_destroy(pointer)
   }
+  
+  public override func step(_ steps: Int) {
+    OpenMM_NoseHooverIntegrator_step(pointer, Int32(steps))
+  }
 }

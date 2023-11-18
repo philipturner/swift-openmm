@@ -17,6 +17,10 @@ public class OpenMM_CustomIntegrator: OpenMM_Integrator {
     OpenMM_CustomIntegrator_destroy(pointer)
   }
   
+  public override func step(_ steps: Int) {
+    OpenMM_CustomIntegrator_step(pointer, Int32(steps))
+  }
+  
   @discardableResult
   public func addComputeGlobal(
     variable: String, expression: String

@@ -20,4 +20,8 @@ public class OpenMM_BrownianIntegrator: OpenMM_Integrator {
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_BrownianIntegrator_destroy(pointer)
   }
+  
+  public override func step(_ steps: Int) {
+    OpenMM_BrownianIntegrator_step(pointer, Int32(steps))
+  }
 }

@@ -8,10 +8,6 @@
 import COpenMM
 
 public class OpenMM_Integrator: OpenMM_Object {
-  public override class func destroy(_ pointer: OpaquePointer) {
-    OpenMM_Integrator_destroy(pointer)
-  }
-  
   public var constraintTolerance: Double {
     get {
       _openmm_get(pointer, OpenMM_Integrator_getConstraintTolerance)
@@ -21,14 +17,17 @@ public class OpenMM_Integrator: OpenMM_Object {
     }
   }
   
+  public override class func destroy(_ pointer: OpaquePointer) {
+    OpenMM_Integrator_destroy(pointer)
+  }
+  
   public func step(_ steps: Int) {
     OpenMM_Integrator_step(pointer, Int32(steps))
   }
   
-  /// WARNING: Never call the getter. There is no corresponding OpenMM function.
   public var stepSize: Double {
     get {
-      _openmm_no_getter()
+      _openmm_get(pointer, OpenMM_Integrator_getStepSize)
     }
     set {
       OpenMM_Integrator_setStepSize(pointer, newValue)

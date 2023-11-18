@@ -20,4 +20,8 @@ public class OpenMM_LangevinMiddleIntegrator: OpenMM_Integrator {
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_LangevinMiddleIntegrator_destroy(pointer)
   }
+  
+  public override func step(_ steps: Int) {
+    OpenMM_LangevinMiddleIntegrator_step(pointer, Int32(steps))
+  }
 }

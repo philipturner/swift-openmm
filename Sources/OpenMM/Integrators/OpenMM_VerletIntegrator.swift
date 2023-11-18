@@ -16,4 +16,8 @@ public class OpenMM_VerletIntegrator: OpenMM_Integrator {
   public override class func destroy(_ pointer: OpaquePointer) {
     OpenMM_VerletIntegrator_destroy(pointer)
   }
+  
+  public override func step(_ steps: Int) {
+    OpenMM_VerletIntegrator_step(pointer, Int32(steps))
+  }
 }
