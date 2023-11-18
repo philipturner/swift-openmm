@@ -18,6 +18,13 @@ public class OpenMM_CustomNonbondedForce: OpenMM_Force {
   }
   
   @discardableResult
+  public func addExclusion(particles: SIMD2<Int>) -> Int {
+    let index = OpenMM_CustomNonbondedForce_addExclusion(
+      pointer, Int32(particles[0]), Int32(particles[1]))
+    return Int(index)
+  }
+  
+  @discardableResult
   public func addGlobalParameter(
     name: String, defaultValue: Double
   ) -> Int {
