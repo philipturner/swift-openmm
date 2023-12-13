@@ -11,6 +11,7 @@ if let path = ProcessInfo.processInfo.environment["OPENMM_LIBRARY_PATH"] {
   linkerSettings = [
     .unsafeFlags(["-L\(path)"]),
     .linkedLibrary("OpenMM"),
+    .linkedLibrary("c++")
   ]
 }
 
