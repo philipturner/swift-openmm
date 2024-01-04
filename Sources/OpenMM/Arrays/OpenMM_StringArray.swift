@@ -19,7 +19,7 @@ public class OpenMM_StringArray: OpenMM_Array {
   
   public subscript(index: Int) -> String {
     get {
-      .init(cString: _openmm_index_get(pointer, index, OpenMM_StringArray_get))
+      String(cString: _openmm_index_get(pointer, index, OpenMM_StringArray_get))
     }
     // `set` not supported yet.
   }

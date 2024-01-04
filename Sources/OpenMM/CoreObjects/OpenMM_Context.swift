@@ -118,4 +118,15 @@ public class OpenMM_Context: OpenMM_Object {
       OpenMM_Context_setVelocities(pointer, newValue.pointer)
     }
   }
+  
+  // We expose only the 'get' function, as no known platforms implement the
+  // 'set' function.
+  public func getPropertyValue(_ property: String) -> String {
+    let cString = OpenMM_Platform_getPropertyValue(
+      platform.pointer, pointer, property)
+    guard let cString else {
+      fatalError("Could not retrieve value for name '\(property)'.")
+    }
+    return String(cString: cString)
+  }
 }

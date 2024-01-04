@@ -48,6 +48,23 @@ public class OpenMM_Platform: OpenMM_Object {
   }
   
   public var name: String {
-    .init(cString: _openmm_get(pointer, OpenMM_Platform_getName))
+    String(cString: _openmm_get(pointer, OpenMM_Platform_getName))
+  }
+  
+  public var propertyNames: OpenMM_StringArray {
+    OpenMM_StringArray(_openmm_get(
+      pointer, OpenMM_Platform_getPropertyNames))
+  }
+  
+  public func getPropertyDefaultValue(_ property: String) -> String {
+    let cString = OpenMM_Platform_getPropertyDefaultValue(pointer, property)
+    guard let cString else {
+      fatalError("Could not retrieve value for name '\(property)'.")
+    }
+    return String(cString: cString)
+  }
+  
+  public func setPropertyDefaultValue(_ property: String, value: String) {
+    OpenMM_Platform_setPropertyDefaultValue(pointer, property, value)
   }
 }

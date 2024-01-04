@@ -16,7 +16,7 @@ public class OpenMM_PropertyArray: OpenMM_Array {
   
   public subscript(dynamicMember name: String) -> String {
     get {
-      .init(cString: OpenMM_PropertyArray_get(pointer, name))
+      String(cString: OpenMM_PropertyArray_get(pointer, name))
     }
   }
 }
