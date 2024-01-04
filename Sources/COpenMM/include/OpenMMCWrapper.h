@@ -26,6 +26,7 @@ typedef struct OpenMM_TabulatedFunction_struct OpenMM_TabulatedFunction;
 typedef struct OpenMM_Discrete2DFunction_struct OpenMM_Discrete2DFunction;
 typedef struct OpenMM_Force_struct OpenMM_Force;
 typedef struct OpenMM_CustomAngleForce_struct OpenMM_CustomAngleForce;
+typedef struct OpenMM_MinimizationReporter_struct OpenMM_MinimizationReporter;
 typedef struct OpenMM_CustomNonbondedForce_struct OpenMM_CustomNonbondedForce;
 typedef struct OpenMM_AndersenThermostat_struct OpenMM_AndersenThermostat;
 typedef struct OpenMM_VirtualSite_struct OpenMM_VirtualSite;
@@ -66,6 +67,7 @@ typedef struct OpenMM_System_struct OpenMM_System;
 typedef struct OpenMM_CustomCompoundBondForce_struct OpenMM_CustomCompoundBondForce;
 typedef struct OpenMM_CustomCentroidBondForce_struct OpenMM_CustomCentroidBondForce;
 typedef struct OpenMM_CMAPTorsionForce_struct OpenMM_CMAPTorsionForce;
+typedef struct OpenMM_ATMForce_struct OpenMM_ATMForce;
 typedef struct OpenMM_Continuous3DFunction_struct OpenMM_Continuous3DFunction;
 typedef struct OpenMM_OutOfPlaneSite_struct OpenMM_OutOfPlaneSite;
 typedef struct OpenMM_Discrete1DFunction_struct OpenMM_Discrete1DFunction;
@@ -240,6 +242,11 @@ extern OPENMM_EXPORT void OpenMM_CustomAngleForce_setAngleParameters(OpenMM_Cust
 extern OPENMM_EXPORT void OpenMM_CustomAngleForce_updateParametersInContext(OpenMM_CustomAngleForce* target, OpenMM_Context* context);
 extern OPENMM_EXPORT void OpenMM_CustomAngleForce_setUsesPeriodicBoundaryConditions(OpenMM_CustomAngleForce* target, OpenMM_Boolean periodic);
 extern OPENMM_EXPORT OpenMM_Boolean OpenMM_CustomAngleForce_usesPeriodicBoundaryConditions(const OpenMM_CustomAngleForce* target);
+
+/* MinimizationReporter */
+extern OPENMM_EXPORT OpenMM_MinimizationReporter* OpenMM_MinimizationReporter_create();
+extern OPENMM_EXPORT void OpenMM_MinimizationReporter_destroy(OpenMM_MinimizationReporter* target);
+extern OPENMM_EXPORT OpenMM_Boolean OpenMM_MinimizationReporter_report(OpenMM_MinimizationReporter* target, int iteration, const OpenMM_DoubleArray* x, const OpenMM_DoubleArray* grad, OpenMM_ParameterArray* args);
 
 /* CustomNonbondedForce */
 typedef enum {
@@ -834,7 +841,7 @@ extern OPENMM_EXPORT void OpenMM_LangevinMiddleIntegrator_step(OpenMM_LangevinMi
 
 /* LocalEnergyMinimizer */
 extern OPENMM_EXPORT void OpenMM_LocalEnergyMinimizer_destroy(OpenMM_LocalEnergyMinimizer* target);
-extern OPENMM_EXPORT void OpenMM_LocalEnergyMinimizer_minimize(OpenMM_Context* context, double tolerance, int maxIterations);
+extern OPENMM_EXPORT void OpenMM_LocalEnergyMinimizer_minimize(OpenMM_Context* context, double tolerance, int maxIterations, OpenMM_MinimizationReporter* reporter);
 
 /* LangevinIntegrator */
 extern OPENMM_EXPORT OpenMM_LangevinIntegrator* OpenMM_LangevinIntegrator_create(double temperature, double frictionCoeff, double stepSize);
@@ -1038,6 +1045,41 @@ extern OPENMM_EXPORT void OpenMM_CMAPTorsionForce_setTorsionParameters(OpenMM_CM
 extern OPENMM_EXPORT void OpenMM_CMAPTorsionForce_updateParametersInContext(OpenMM_CMAPTorsionForce* target, OpenMM_Context* context);
 extern OPENMM_EXPORT void OpenMM_CMAPTorsionForce_setUsesPeriodicBoundaryConditions(OpenMM_CMAPTorsionForce* target, OpenMM_Boolean periodic);
 extern OPENMM_EXPORT OpenMM_Boolean OpenMM_CMAPTorsionForce_usesPeriodicBoundaryConditions(const OpenMM_CMAPTorsionForce* target);
+
+/* ATMForce */
+extern OPENMM_EXPORT OpenMM_ATMForce* OpenMM_ATMForce_create(const char* energy);
+extern OPENMM_EXPORT OpenMM_ATMForce* OpenMM_ATMForce_create_2(double lambda1, double lambda2, double alpha, double uh, double w0, double umax, double ubcore, double acore, double direction);
+extern OPENMM_EXPORT void OpenMM_ATMForce_destroy(OpenMM_ATMForce* target);
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Lambda1();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Lambda2();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Alpha();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Uh();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_W0();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Umax();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Ubcore();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Acore();
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_Direction();
+extern OPENMM_EXPORT int OpenMM_ATMForce_getNumParticles(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT int OpenMM_ATMForce_getNumForces(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT int OpenMM_ATMForce_getNumGlobalParameters(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT int OpenMM_ATMForce_getNumEnergyParameterDerivatives(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_getEnergyFunction(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT void OpenMM_ATMForce_setEnergyFunction(OpenMM_ATMForce* target, const char* energy);
+extern OPENMM_EXPORT int OpenMM_ATMForce_addForce(OpenMM_ATMForce* target, OpenMM_Force* force);
+extern OPENMM_EXPORT OpenMM_Force* OpenMM_ATMForce_getForce(const OpenMM_ATMForce* target, int index);
+extern OPENMM_EXPORT int OpenMM_ATMForce_addParticle(OpenMM_ATMForce* target, const OpenMM_Vec3* displacement1, const OpenMM_Vec3* displacement0);
+extern OPENMM_EXPORT void OpenMM_ATMForce_getParticleParameters(const OpenMM_ATMForce* target, int index, OpenMM_Vec3* displacement1, OpenMM_Vec3* displacement0);
+extern OPENMM_EXPORT void OpenMM_ATMForce_setParticleParameters(OpenMM_ATMForce* target, int index, const OpenMM_Vec3* displacement1, const OpenMM_Vec3* displacement0);
+extern OPENMM_EXPORT int OpenMM_ATMForce_addGlobalParameter(OpenMM_ATMForce* target, const char* name, double defaultValue);
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_getGlobalParameterName(const OpenMM_ATMForce* target, int index);
+extern OPENMM_EXPORT void OpenMM_ATMForce_setGlobalParameterName(OpenMM_ATMForce* target, int index, const char* name);
+extern OPENMM_EXPORT double OpenMM_ATMForce_getGlobalParameterDefaultValue(const OpenMM_ATMForce* target, int index);
+extern OPENMM_EXPORT void OpenMM_ATMForce_setGlobalParameterDefaultValue(OpenMM_ATMForce* target, int index, double defaultValue);
+extern OPENMM_EXPORT void OpenMM_ATMForce_addEnergyParameterDerivative(OpenMM_ATMForce* target, const char* name);
+extern OPENMM_EXPORT const char* OpenMM_ATMForce_getEnergyParameterDerivativeName(const OpenMM_ATMForce* target, int index);
+extern OPENMM_EXPORT void OpenMM_ATMForce_updateParametersInContext(OpenMM_ATMForce* target, OpenMM_Context* context);
+extern OPENMM_EXPORT OpenMM_Boolean OpenMM_ATMForce_usesPeriodicBoundaryConditions(const OpenMM_ATMForce* target);
+extern OPENMM_EXPORT void OpenMM_ATMForce_getPerturbationEnergy(OpenMM_ATMForce* target, OpenMM_Context* context, double* u1, double* u0, double* energy);
 
 /* Continuous3DFunction */
 extern OPENMM_EXPORT OpenMM_Continuous3DFunction* OpenMM_Continuous3DFunction_create(int xsize, int ysize, int zsize, const OpenMM_DoubleArray* values, double xmin, double xmax, double ymin, double ymax, double zmin, double zmax, OpenMM_Boolean periodic);
