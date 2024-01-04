@@ -9,10 +9,26 @@ import COpenMM
 
 public class OpenMM_Context: OpenMM_Object {
   public convenience init(
-    system: OpenMM_System, integrator: OpenMM_Integrator
+    system: OpenMM_System,
+    integrator: OpenMM_Integrator
   ) {
     self.init(_openmm_create(
-      system.pointer, integrator.pointer, OpenMM_Context_create))
+      system.pointer,
+      integrator.pointer,
+      OpenMM_Context_create))
+    self.retain()
+  }
+  
+  public convenience init(
+    system: OpenMM_System,
+    integrator: OpenMM_Integrator,
+    platform: OpenMM_Platform
+  ) {
+    self.init(_openmm_create(
+      system.pointer,
+      integrator.pointer,
+      platform.pointer,
+      OpenMM_Context_create_2))
     self.retain()
   }
   

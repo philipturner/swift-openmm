@@ -35,6 +35,18 @@ public class OpenMM_Platform: OpenMM_Object {
     OpenMM_Platform_loadPluginLibrary(file)
   }
   
+  public static var platforms: [OpenMM_Platform] {
+    let numPlatforms = Int(OpenMM_Platform_getNumPlatforms())
+    var platforms: [OpenMM_Platform] = []
+    for i in 0..<numPlatforms {
+      guard let platform = OpenMM_Platform_getPlatform(Int32(i)) else {
+        fatalError("Could not retrieve platform at index \(i).")
+      }
+      platforms.append(OpenMM_Platform(platform))
+    }
+    return platforms
+  }
+  
   public var name: String {
     .init(cString: _openmm_get(pointer, OpenMM_Platform_getName))
   }
