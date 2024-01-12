@@ -129,4 +129,8 @@ public class OpenMM_Context: OpenMM_Object {
     }
     return String(cString: cString)
   }
+  
+  public func computeVirtualSites() {
+    OpenMM_Context_computeVirtualSites(pointer)
+  }
 }
